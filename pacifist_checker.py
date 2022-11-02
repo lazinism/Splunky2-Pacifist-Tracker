@@ -13,7 +13,7 @@ class myUI:
                 if line:
                     label.config(text=line.strip())
                     f.seek(0)
-            time.sleep(0.5)
+            time.sleep(0.01)
 
     def getscreensize(self):
         user32 = ctypes.windll.user32
