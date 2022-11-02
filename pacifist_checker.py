@@ -25,8 +25,8 @@ class myUI:
 
     def elem(self,event,root):
         root.withdraw()
-        root.destroy()
         sys.exit(0)
+        root.destroy()
 
     def __init__(self):
         root = Tk.Tk()
@@ -34,7 +34,7 @@ class myUI:
         root.resizable(False, False)
         root.overrideredirect(True)
         root.geometry(self.getscreensize())
-        label = Tk.Label(root, text="Lazinism", bg='Red', height=2, anchor=Tk.CENTER, font=("맑은고딕", 15, "bold"))
+        label = Tk.Label(root, text="Lazinism", bg='Red', fg='White', height=1, anchor=Tk.CENTER, font=("맑은고딕", 30, "bold"))
         label.grid(row=0, column=0, columnspan=5, sticky='ew')    
         label.pack()
         local = os.getenv('LocalAppData')
@@ -49,4 +49,5 @@ class myUI:
         
         
 if __name__ == "__main__":
+    
     ui = myUI()
