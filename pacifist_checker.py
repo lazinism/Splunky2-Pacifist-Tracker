@@ -6,25 +6,36 @@ import os
 import time
 import re
 from playsound import playsound
-from pathlib import Path
 
 class myUI:
+    def playbeepSound(self):
+        path = getattr(sys, '_MEIPASS', os.getcwd())
+        playsound(path+'\\pc\\beep.mp3')
+    
     def mywork(self,item, label):
         f = open(item, 'r', encoding='utf-8', errors='ignore')
         murderer = False
-        path = getattr(sys, '_MEIPASS', os.getcwd())
+        t = ""
         while True:
             for line in f:
                 if line:
                     s = line.strip()
-                    label.config(text=s)
-                    if re.match("MURDERED \d+!", s):
+                    robj = re.match("MURDERED (\d+)!", s)
+                    if s == "Waiting for game...":
+                        t = "게임 기다리는 중..."
+                    elif s == "Pacifist":
+                        t = "불살런 중"
+                    if robj:
                         if not murderer:
                             murderer = True
-                            playsound(path+'\\pc\\beep.mp3')
+                            st = Thread(target=self.playbeepSound,daemon=True)
+                            st.start()
+                        t = "실패! "+robj.groups()[0]+"킬"
                     else:
                         murderer = False
+                        
                     f.seek(0)
+                    label.config(text=t)
             time.sleep(0.001)
 
     def getscreensize(self):
@@ -46,7 +57,7 @@ class myUI:
         root.resizable(False, False)
         root.overrideredirect(True)
         root.geometry(self.getscreensize())
-        label = Tk.Label(root, text="Lazinism", bg='Red', fg='White', height=1, anchor=Tk.CENTER, font=("맑은고딕", 30, "bold"))
+        label = Tk.Label(root, text="Lazinism", bg='Red', fg='White', height=1, anchor=Tk.CENTER, font=("맑은 고딕", 30, "bold"))
         label.grid(row=0, column=0, columnspan=5, sticky='ew')    
         label.pack()
         local = os.getenv('LocalAppData')
