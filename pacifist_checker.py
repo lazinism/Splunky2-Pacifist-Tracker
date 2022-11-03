@@ -4,16 +4,28 @@ import sys
 import ctypes
 import os
 import time
+import re
+from playsound import playsound
+from pathlib import Path
 
 class myUI:
     def mywork(self,item, label):
         f = open(item, 'r', encoding='utf-8', errors='ignore')
+        murderer = False
+        path = getattr(sys, '_MEIPASS', os.getcwd())
         while True:
             for line in f:
                 if line:
-                    label.config(text=line.strip())
+                    s = line.strip()
+                    label.config(text=s)
+                    if re.match("MURDERED \d+!", s):
+                        if not murderer:
+                            murderer = True
+                            playsound(path+'\\pc\\beep.mp3')
+                    else:
+                        murderer = False
                     f.seek(0)
-            time.sleep(0.01)
+            time.sleep(0.001)
 
     def getscreensize(self):
         user32 = ctypes.windll.user32
