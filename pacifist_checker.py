@@ -31,6 +31,12 @@ class myUI:
                             st = Thread(target=self.playbeepSound,daemon=True)
                             st.start()
                         t = "실패! "+robj.groups()[0]+"킬"
+                    elif s == "MURDERER!":
+                        if not murderer:
+                            murderer = True
+                            st = Thread(target=self.playbeepSound,daemon=True)
+                            st.start()
+                        t = "실패!"
                     else:
                         murderer = False
                         
