@@ -52,7 +52,7 @@ class myUI:
 
     def move(self,event,root):
         x, y = root.winfo_pointerxy()
-        y = y - root.winfo_height()
+        y = y - root.winfo_height() + 1
         root.geometry(f"+{x}+{y}")
 
     def elem(self,event,root):
