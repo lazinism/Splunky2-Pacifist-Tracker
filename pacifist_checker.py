@@ -21,7 +21,9 @@ class myUI:
                 if line:
                     s = line.strip()
                     robj = re.match("MURDERED (\d+)!", s)
-                    if s == "Waiting for game...":
+                    if s == "Not running":
+                        t = "모드렁키 기다리는 중..."
+                    elif s == "Waiting for game...":
                         t = "게임 기다리는 중..."
                     elif s == "Pacifist":
                         t = "불살런 중"
@@ -50,6 +52,7 @@ class myUI:
 
     def move(self,event,root):
         x, y = root.winfo_pointerxy()
+        y = y - root.winfo_height()
         root.geometry(f"+{x}+{y}")
 
     def elem(self,event,root):
